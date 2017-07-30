@@ -1,0 +1,46 @@
+{
+  "name": "socketcluster-sample",
+  "description": "A sample SocketCluster app",
+  "version": "1.0.0",
+  "contributors": [
+    {
+      "name": "Jonathan Gros-Dubois",
+      "email": "grosjona@yahoo.com.au"
+    }
+  ],
+  "dependencies": {
+    "babel-polyfill": "^6.23.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-register": "^6.24.1",
+    "connect": "3.0.1",
+    "express": "4.14.0",
+    "minimist": "1.1.0",
+    "morgan": "1.7.0",
+    "sc-errors": "~1.3.3",
+    "sc-framework-health-check": "~1.0.0",
+    "sc-hot-reboot": "~1.0.0",
+    "scc-broker-client": "~1.4.0",
+    "serve-static": "1.11.2",
+    "socketcluster": "~6.5.0",
+    "socketcluster-client": "~6.3.0"
+  },
+  "keywords": [
+    "websocket",
+    "server",
+    "realtime",
+    "cluster",
+    "scalable"
+  ],
+  "readmeFilename": "README.md",
+  "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "eslint": "^4.3.0",
+    "eslint-config-airbnb-base": "^11.3.1",
+    "eslint-plugin-import": "^2.7.0"
+  },
+  "scripts": {
+    "start": "babel-node server.js",
+    "build": "babel src/ -d build/",
+    "serve": "node build/index.js"
+  }
+}
