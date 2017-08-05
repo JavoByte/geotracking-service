@@ -26,8 +26,6 @@ module.exports.run = (worker) => {
 
   httpServer.on('request', app);
 
-  let count = 0;
-
   /*
     In here we handle our incoming realtime connections and listen for events.
   */
@@ -35,20 +33,8 @@ module.exports.run = (worker) => {
     // Some sample logic to show how to handle client events,
     // replace this with your own logic
 
-    socket.on('sampleClientEvent', (data) => {
-      count += 1;
-      console.log('Handled sampleClientEvent', data);
-      scServer.exchange.publish('sample', count);
-    });
-
-    const interval = setInterval(() => {
-      socket.emit('rand', {
-        rand: Math.floor(Math.random() * 5),
-      });
-    }, 1000);
-
     socket.on('disconnect', () => {
-      clearInterval(interval);
+      console.log('socket disconnected');
     });
   });
 };
