@@ -3,6 +3,42 @@ import validate from 'validate.js';
 import Device from '../models/Device';
 import Location from '../models/Location';
 
+export const getLast = scServer => (socketData) => {
+  let data = null;
+  if (!(socketData instanceof Object)) {
+    try {
+      data = JSON.parse(socketData);
+    } catch (error) {
+      // Handle error
+      return;
+    }
+  } else {
+    data = socketData;
+  }
+
+  const { device } = data;
+  Device.findOne({ identifier: device }).then((deviceObject) => {
+    Location.findOne({
+      // eslint-disable-next-line no-underscore-dangle
+      device: deviceObject._id,
+    }).select({
+      _id: 0,
+      latitude: 1,
+      longitude: 1,
+      timestamp: 1,
+    }).sort({
+      timestamp: -1,
+    }).then((location) => {
+      if (location) {
+        scServer.exchange.publish(device, {
+          data: location,
+          event: 'location.update',
+        });
+      }
+    });
+  });
+};
+
 export const update = (scServer, socket) => (socketData, respond) => {
   let data = null;
   if (!(socketData instanceof Object)) {

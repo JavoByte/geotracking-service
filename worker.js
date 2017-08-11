@@ -60,6 +60,7 @@ module.exports.run = (worker) => {
 
     scServer.on('connection', (socket) => {
       socket.on('trackerauth', authWorker.authenticate(scServer, socket));
+      socket.on('location.last', locationWorker.getLast(scServer, socket));
       socket.on('location.update', locationWorker.update(scServer, socket));
       socket.on('message', messagesWorker.messageHandler(scServer, socket));
     });
