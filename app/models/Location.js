@@ -1,7 +1,7 @@
 import mongoose, { Schema } from 'mongoose';
 
 const schema = new Schema({
-  device: String,
+  device: { type: Schema.Types.ObjectId, ref: 'Device' },
   longitude: Number,
   latitude: Number,
   timestamp: Number,
